@@ -1,0 +1,25 @@
+tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+    - operator: Exists
+      effect: NoSchedule
+    - operator: Exists
+      effect: NoExecute
+extraArgs:
+   - -client.external-labels=cluster=eks-revendamais-hml
+config:
+  logLevel: info
+  serverPort: 3101
+  clients:
+    - url: http://loki-gateway.loki:80/loki/api/v1/push
+resources: 
+  limits:
+    cpu: 200m
+    memory: 550Mi
+  requests:
+    cpu: 30m
+    memory: 64Mi

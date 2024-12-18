@@ -1,0 +1,29 @@
+ingress:
+  enabled: false
+  hosts:
+  - monitoring.com.br
+  ingressClassName: nginx
+  path: /
+  pathType: Prefix
+grafana.ini:
+  dataproxy:
+    timeout = 180
+persistence:
+  accessModes:
+  - ReadWriteOnce
+  annotations: null
+  enabled: true
+  finalizers: null
+  size: 10Gi
+  storageClassName: gp2
+  subPath: null
+  type: pvc
+initChownData:
+  enabled: false
+resources: 
+  limits:
+    cpu: 500m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi

@@ -1,0 +1,13 @@
+autoDiscovery:
+  clusterName: eks-name
+cloudProvider: aws
+extraArgs:
+  skip-nodes-with-local-storage: false
+  skip-nodes-with-system-pods: false
+rbac:
+  create: true
+  pspEnabled: false
+  clusterScoped: true
+  serviceAccount:
+    annotations: 
+    create: true

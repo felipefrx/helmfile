@@ -1,0 +1,4 @@
+clusterName: eks-name
+region: us-east-1
+serviceAccount:
+  create: true

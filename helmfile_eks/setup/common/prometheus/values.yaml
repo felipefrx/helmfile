@@ -1,0 +1,52 @@
+crds:
+  enabled: true
+grafana:
+  enabled: false
+  image:
+    tag: "10.1.0"
+  persistence:
+    type: pvc
+    enabled: true
+    size: 10Gi
+    storageClassName: extgp2
+prometheus:
+  enabled: true
+  prometheusSpec:
+##    enableFeatures:
+##    - remote-write-receiver
+##    enableRemoteWriteReceiver: true
+    retention: 10d
+    retentionSize: "50GB"
+    resources:
+      requests:
+        memory: 800Mi
+        cpu: 30m
+      limits:
+        memory: 3Gi
+        cpu: 1
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 100Gi
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    storage: 
+      volumeClaimTemplate:
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 5Gi
+    resources:
+      requests:
+        memory: 30Mi
+        cpu: 30m
+      limits:
+        memory: 1Gi
+        cpu: 1

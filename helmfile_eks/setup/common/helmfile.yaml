@@ -1,0 +1,119 @@
+repositories:
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: prometheus
+    url: https://prometheus-community.github.io/helm-charts
+  - name: cert-manager
+    url: https://charts.jetstack.io
+  - name: cluster-autoscaler
+    url: https://kubernetes.github.io/autoscaler
+  - name: aws-ebs-csi-driver
+    url: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+  - name: promtail
+    url: https://grafana.github.io/helm-charts
+  - name: aws-load-balancer-controller
+    url: https://aws.github.io/eks-charts
+  - name: metrics-server
+    url: https://kubernetes-sigs.github.io/metrics-server/
+
+releases:
+  - name: ingress-nginx
+    cleanupOnFail: false
+    chart: ingress-nginx/ingress-nginx
+    namespace: ingress-nginx
+    version: 4.11.3
+    #installed: false
+    createNamespace: true
+    values:
+      - ./ingress-nginx/values.yaml
+
+  - name: cert-manager
+    cleanupOnFail: false
+    chart: jetstack/cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    #installed: false
+    # values:
+    #   - ./cert-manager/values.yaml
+
+  - name: cluster-autoscaler
+    cleanupOnFail: false
+    chart: cluster-autoscaler/cluster-autoscaler
+    namespace: kube-system
+    version: 9.43.2
+    createNamespace: false
+    #installed: false
+    values:
+      - ./cluster-autoscaler/values.yaml
+
+  - name: prometheus
+    cleanupOnFail: false
+    chart: prometheus/kube-prometheus-stack
+    namespace: prometheus
+    version: 62.7.0
+    createNamespace: true
+    #installed: false
+    values:
+      - ./prometheus/values.yaml
+
+  - name: loki
+    cleanupOnFail: false
+    chart: grafana/loki-distributed
+    namespace: loki
+    version: 0.78.2
+    createNamespace: true
+    #installed: false
+    values:
+      - ./loki/values.yaml
+
+  - name: promtail
+    cleanupOnFail: false
+    chart: grafana/promtail
+    namespace: promtail
+    version: 6.16.6
+    createNamespace: true
+    #installed: false
+    values:
+      - ./promtail/values.yaml
+  
+  - name: grafana
+    cleanupOnFail: false
+    chart: grafana/grafana
+    namespace: grafana
+    version: 8.7.0
+    createNamespace: true
+    #installed: false
+    values:
+      - ./log-stack/values.yaml
+
+  - name: aws-load-balancer-controller
+    cleanupOnFail: false
+    chart: aws-load-balancer-controller/aws-load-balancer-controller
+    namespace: kube-system
+    version: 1.11.0
+    createNamespace: false
+    #installed: false
+    values:
+      - ./load-balancer-controller/values.yaml
+
+  - name: metrics-server
+    cleanupOnFail: false
+    chart: metrics-server/metrics-server
+    namespace: kube-system
+    version: 3.12.2
+    createNamespace: false
+    #installed: false
+    # values:
+    #   - ./metrics-server/values.yaml
+
+  - name: aws-ebs-csi-driver
+    cleanupOnFail: false
+    chart: aws-ebs-csi-driver/aws-ebs-csi-driver 
+    namespace: kube-system
+    version: 2.38.1
+    createNamespace: false
+    #installed: false
+    # values:
+    #   - ./aws-ebs-csi-driver/values.yaml
